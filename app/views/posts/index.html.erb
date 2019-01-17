@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+  <meta charset="UTF-8">
+  <title>Rails Camp Blog</title>
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+</head>
+<body>
+
+
+<div id="main">
+    <img src="main-img.jpg">
+</div>
+
+
+<div id="article_wrap">
+
+  <div id="article_list">
+
+    <% @posts.each do |post| %>
+      <div>
+        <%= link_to "#{post.title}", post, :class => "index-content" %>
+        <p><%= post.updated_at.strftime('%Y/%m/%d') %></p>
+        <% if user_signed_in? %>
+	        <% if post.user_id == current_user.id %>
+	        	<%= link_to "編集", edit_post_path(post), :class => "index-edit" %>
+	        	<%= link_to "削除", post_path(post), method: :delete, :class => "index-edit" %>
+	        <% end %>
+	       <% end %>
+      </div>
+    <% end %>
+
+
+  </div>
+
+  <div id="sidebar">
+
+    <h2>★PV数ランキング</h2>
+    <% @ranking_posts.each do |post| %>
+        <p>
+          <%= link_to post.title, post_path(post.id) %>
+          <span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id).floor %>PV)</span>
+        </p>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+
+</body>
+</html>

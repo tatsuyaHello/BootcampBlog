@@ -1,0 +1,10 @@
+<div class="main-container">
+	<%= form_for @post do |f| %>
+		<%= f.label "タイトル" %>
+		<p><%= f.text_field :title %></p>
+		<br>
+		<%= f.label "記事内容" %>
+		<p><%= f.text_area :content %></p>
+		<%= f.submit "Create Article" %>
+	<% end %>
+</div>

@@ -1,0 +1,19 @@
+<div class="show">
+	<p><%= @post.updated_at.strftime('%Y/%m/%d') %>/書いた人:<%= @user.email %></p>
+	<p class="show-main"><%= @post.title %></p>
+</div>
+<div class="show-content">
+	<p><%= @post.content %></p>
+</div>
+<div id="sidebar">
+
+	<h2>★PV数ランキング</h2>
+	<% @ranking_posts.each do |post| %>
+			<p>
+				<%= link_to post.title, post_path(post.id) %>
+				<span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id).floor %>PV)</span>
+			</p>
+	<% end %>
+</div>
+<div class="clear"></div>
+</div>
