@@ -39,7 +39,7 @@
     <% @ranking_posts.each do |post| %>
         <p>
           <%= link_to post.title, post_path(post.id) %>
-          <% if post.id.blank? %>
+          <% unless post.id.nil? %>
             <span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id).floor %>PV)</span>
           <% end %>
         </p>
