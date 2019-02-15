@@ -11,7 +11,7 @@
 	<% @ranking_posts.each do |post| %>
 			<p>
 				<%= link_to post.title, post_path(post.id) %>
-				<span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id).floor %>PV)</span>
+				<span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id) %>PV)</span>
 			</p>
 	<% end %>
 </div>

@@ -40,7 +40,7 @@
         <p>
           <%= link_to post.title, post_path(post.id) %>
           <% unless post.id.nil? %>
-            <span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id).floor %>PV)</span>
+            <span>(<%= REDIS.zscore("posts/daily/#{Date.today.to_s}",post.id) %>PV)</span>
           <% end %>
         </p>
     <% end %>
